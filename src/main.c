@@ -5,18 +5,20 @@
 /* - from -79,228,162,514,264,337,593,543,950,335 to 79,228,162,514,264,337,593,543,950,335
    - default decimal == 0
    - 1-разр знак, 96-разр целое число и коэф масштабирования
-   - коэф масштабир неявно равен 10 в степ от 0 до 28
+   - коэф масштабир неявно равен 10 в степени от 0 до 28
 */
 
 int main() {
-    int a = 127;
-    for (int i = 31; i >= 0; i--)
-        printf("%d", findbit(a, i));
-    // for (int i = 0; i < 32; i++)
-        a = modbit(a, 31, 1);
-    printf("\n");
-    for (int i = 31; i >= 0; i--)
-        printf("%d", findbit(a, i));
-    printf("\na = %d", a);
+    s21_decimal num;
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 32; j++)
+            clearbit(num.bits[i], j);
+    int a = INT32_MAX;
+    s21_from_int_to_decimal(a, &num);
+    for(int i = 3; i >= 0; i--) {
+        for (int j = 31; j >= 0; j--)
+            printf("%d", findbit(num.bits[i], j));
+        printf(" ");
+    }
     return 0;
 }

@@ -15,3 +15,11 @@ int modbit(int n, const int k, int bit) {
         result = setbit(n, k);
     return result;
 }
+
+void set_neg_bit(s21_decimal *dst) {
+    dst->bits[3] = setbit(dst->bits[3], _SIGNBIT_POS);
+}
+
+void set_pos_bit(s21_decimal *dst) {
+    dst->bits[3] = clearbit(dst->bits[3], _SIGNBIT_POS);
+}
