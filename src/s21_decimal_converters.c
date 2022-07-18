@@ -17,7 +17,21 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
 }
 
 int s21_from_decimal_to_int(s21_decimal src, int *dst) {
-
+    int convertError = 0;
+    if (dst) {
+        if (!check_int_overflow(&src)) {
+            if (check_sign(&src)) {
+                *dst = -src.bits[0];
+            } else {
+                *dst = src.bits[0];
+            }
+        } else {
+            convertError = DATA_OVERFLOW;
+        }
+    } else {
+        convertError = 1;
+    }
+    return convertError;
 }
 
 int s21_from_decimal_to_float(s21_decimal src, float *dst) {
