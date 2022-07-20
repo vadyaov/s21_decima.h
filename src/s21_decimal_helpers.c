@@ -50,3 +50,19 @@ int check_int_overflow(s21_decimal *dst) {
     }
     return error;
 }
+
+void put_exp_in_decimal(s21_decimal *dst, int e) {
+    unsigned int bit = (*(unsigned int*)&e);
+    unsigned int mask = 0x80000000;
+    int position = 27;
+    mask >>= position;
+    int i = 20;
+    while (position < 32) {
+        if (!!(bit & mask)) {
+            dst->bits[3] = setbit(dst->bits[3], i);
+        }
+        position++;
+        mask >>= 1;
+        i--;
+    }
+}
